@@ -28,10 +28,7 @@ export default {
 
 .v-main-wrapper {
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  
   max-width: 900px;
   margin: 0 auto;
 }
