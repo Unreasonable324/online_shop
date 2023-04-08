@@ -2,3 +2,14 @@ $padding: 8px;
 $margin: 8px;
 
 $radius: 4px;
+
+$green_bg: #26ae68;
+
+.btn{
+    padding: $padding $padding*2;
+    background: $green_bg;
+    color: #fff;
+    cursor: pointer;
+    border: 0;
+    border-radius: $radius;
+}

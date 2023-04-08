@@ -1,11 +1,14 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import store from './vuex/store'
+import router from './router'
 
 
+const app = createApp(App)
+app.config.productionTip = false
 
-// Vue.config.productionTip = false
-
-createApp(App).use(store).mount('#app')
+app.use(store)
+app.use(router)
+app.mount('#app')
 
 

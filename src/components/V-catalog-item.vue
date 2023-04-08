@@ -30,8 +30,12 @@ export default {
   },
   methods: {
     addToCart() {
-      this.$emit('addToCart', this.product_data);
-},
+      this.$emit("addToCart", this.product_data);
+    },
+  },
+  mounted() {
+    const cartItemData = this.product_data;
+    cartItemData.quantity = 1;
   },
 };
 </script>
