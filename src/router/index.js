@@ -1,8 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 // import HomeView from '../views/HomeView.vue'
-import VCatalog from "../components/V-catalog"
-import VCart from "../components/V-cart"
-
+import VCatalog from "../components/catalog/V-catalog"
+import VCart from "../components/cart/V-cart"
 const routes = [
   {
     path: '/',
@@ -15,6 +14,7 @@ const routes = [
     component: VCart,
     props: true 
 },
+
   // {
   //   path: '/',
   //   name: 'home',

@@ -15,9 +15,7 @@
     />
     <div class="V-cart__total">
       <p class="V-cart__total__name">Total: {{ cartTotalCoast }} &#8381; </p>
-      <p>_</p>
       <p class="V-cart__total__name"> Count: {{ cartCount}}</p>
-      <p></p>
     </div>
   </div>
 </template>
@@ -99,7 +97,7 @@ export default {
     right: 0;
     padding: $padding * 2 $padding * 3;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     background: $green_bg;
     color: #fff;
     font-size: 20px;

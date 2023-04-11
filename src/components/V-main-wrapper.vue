@@ -1,6 +1,5 @@
 <template>
   <div class="v-main-wrapper">
-    <p>main wrapper</p>
     <keep-alive>
       <router-view />
     </keep-alive>

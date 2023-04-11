@@ -2,7 +2,7 @@
   <div class="V-catalog-item">
     <img
       class="V-catalog-item__image"
-      :src="require('../assets/images/' + product_data.image)"
+      :src="require('../../assets/images/' + product_data.image)"
       alt="img"
     />
     <p class="V-catalog-item__name">{{ product_data.name }}</p>
@@ -33,10 +33,10 @@ export default {
       this.$emit("addToCart", this.product_data);
     },
   },
-  mounted() {
-    const cartItemData = this.product_data;
-    cartItemData.quantity = 1;
-  },
+  // mounted() {
+  //   const cartItemData = this.product_data;
+  //   cartItemData.quantity = 1;
+  // },
 };
 </script>
 
