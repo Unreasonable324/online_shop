@@ -10,6 +10,8 @@ let store = createStore({
     state: {
         products: [],
         cart: [],
+        isMobile:false,
+        isDesktop: true,
     },
     mutations,
     actions,

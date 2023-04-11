@@ -7,7 +7,41 @@
     <div class="V-catalog__link_to_cart_count">Count:{{ cartCount }}</div>
 
     <h1>Catalog</h1>
-    <VSelect :Categories="Categories" @select="sortByCatigories" :selected="selected" />
+    <div class="filters">
+      <VSelect
+        :Categories="Categories"
+        @select="sortByCatigories"
+        :selected="selected"
+        :isExpanded="IS_MOBILE"
+      />
+      <div class="range-slider">
+        <input
+          type="range"
+          name=""
+          id=""
+          min="0"
+          max="10000"
+          step="10"
+          v-model.number="minPrice"
+          @change="setRangeSlider"
+        />
+        <input
+          type="range"
+          name=""
+          id=""
+          min="0"
+          max="10000"
+          step="10"
+          v-model.number="maxPrice"
+          @change="setRangeSlider"
+        />
+      </div>
+      <div class="range-values">
+        <p>Min: {{ minPrice }}</p>
+        <p>Max: {{ maxPrice }}</p>
+      </div>
+    </div>
+
     <div class="V-catalog__list">
       <VCatalogItem
         v-for="product in filteredProducts"
@@ -39,12 +73,14 @@ export default {
       ],
       selected: "Все",
       sortedProducts: [],
+      minPrice: 0,
+      maxPrice: 10000,
     };
   },
 
   props: {},
   computed: {
-    ...mapGetters(["PRODUCTS", "CART"]),
+    ...mapGetters(["PRODUCTS", "CART", "IS_MOBILE", "IS_DESKTOP"]),
     filteredProducts() {
       if (this.sortedProducts.length) {
         return this.sortedProducts;
@@ -70,23 +106,38 @@ export default {
   },
   methods: {
     ...mapActions(["GET_PRODUCTS_FROM_API", "ADD_TO_CART"]),
-
+    setRangeSlider() {
+      if (this.minPrice > this.maxPrice) {
+        let tmp = this.maxPrice;
+        this.maxPrice = this.minPrice;
+        this.minPrice = tmp;
+      }
+      this.sortByCatigories();
+    },
     addToCart(data) {
       this.ADD_TO_CART(data);
     },
     sortByCatigories(category) {
-      this.sortedProducts = [];
       let vm = this;
-      this.PRODUCTS.map(function (item) {
-        if (item.category === category.name) {
-          vm.sortedProducts.push(item);
-        }
+      this.sortedProducts = [...this.PRODUCTS];
+      this.sortedProducts = this.sortedProducts.filter(function (item) {
+        return item.price >= vm.minPrice && item.price <= vm.maxPrice;
       });
-      this.selected = category.name
+      if (category) {
+        this.sortedProducts = this.sortedProducts.filter(function (e) {
+          vm.selected = category.name;
+          return e.category === category.name;
+        });
+      }
     },
   },
   mounted() {
-    this.GET_PRODUCTS_FROM_API();
+    this.GET_PRODUCTS_FROM_API().then((response) => {
+      if (response.data) {
+        console.log("data arrived");
+        this.sortByCatigories();
+      }
+    });
   },
 };
 </script>
@@ -120,5 +171,29 @@ export default {
     padding: $padding * 2;
     border: solid 1px #aeaeae;
   }
+}
+.filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.range-slider {
+  width: 200px;
+  margin: auto 16px;
+  text-align: center;
+  position: relative;
+}
+.range-slider svg,
+.range-slider input[type="range"] {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+input[type="range"]::-webkit-slider-thumb {
+  z-index: 2;
+  position: relative;
+  top: 2px;
+  margin-top: -4px;
 }
 </style>

@@ -1,8 +1,12 @@
 <template>
   <div class="V-select">
     <p class="title" @click="areOptionsVisible = !areOptionsVisible">{{ selected }}</p>
-    <div class="options" v-if="areOptionsVisible">
-      <p v-for="category in Categories" :key="category.value" @click="selectOption(category)">
+    <div class="options" v-if="areOptionsVisible || isExpanded">
+      <p
+        v-for="category in Categories"
+        :key="category.value"
+        @click="selectOption(category)"
+      >
         {{ category.name }}
       </p>
     </div>
@@ -29,7 +33,10 @@ export default {
       type: String,
       default: "",
     },
-    
+    isExpanded: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     selectOption(category) {
@@ -40,7 +47,6 @@ export default {
     hideSelect() {
       this.areOptionsVisible = false;
     },
-   
   },
   mounted() {
     document.addEventListener("click", this.hideSelect.bind(this), true);
@@ -76,7 +82,7 @@ export default {
 .options p:hover {
   background: #e7e7e7;
 }
-.options p{
+.options p {
   padding: $padding 0;
   background: #fff;
 }
