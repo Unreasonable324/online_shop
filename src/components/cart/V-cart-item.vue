@@ -7,7 +7,7 @@
     />
     <div class="V-cart-item__info">
       <p>{{ cart_item_data.name }}</p>
-      <p>{{ cart_item_data.price }}</p>
+      <p>{{ fixedPrice }}</p>
       <p>{{ cart_item_data.article }}</p>
     </div>
     <div class="V-cart-item__quantity">
@@ -47,7 +47,11 @@ export default {
     deleteFromCart() {
       this.$emit("deleteFromCart");
     },
-  },
+  },  computed: {
+  fixedPrice() {
+    return this.cart_item_data.price.toFixed(2)
+  }
+}
 };
 </script>
 

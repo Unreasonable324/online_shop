@@ -1,5 +1,7 @@
 <template>
   <div class="V-catalog">
+    <VNotification :massages="massages" :timeout="2000" />
+
     <router-link :to="{ name: 'cart', params: { cart_data: CART } }">
       <div class="V-catalog__link_to_cart">Cart:{{ CART.length }}</div>
     </router-link>
@@ -54,11 +56,14 @@
 </template>
 
 <script>
+import VNotification from "../notification/V-notification";
 import VSelect from "../V-select";
 import VCatalogItem from "./V-catalog-item";
 import { mapActions, mapGetters } from "vuex";
+
 export default {
   components: {
+    VNotification,
     VSelect,
     VCatalogItem,
   },
@@ -75,6 +80,7 @@ export default {
       sortedProducts: [],
       minPrice: 0,
       maxPrice: 10000,
+      massages: [],
     };
   },
 
@@ -115,7 +121,14 @@ export default {
       this.sortByCatigories();
     },
     addToCart(data) {
-      this.ADD_TO_CART(data);
+      this.ADD_TO_CART(data).then(() => {
+        let timeStamp = Date.now().toLocaleString();
+
+        this.massages.unshift({
+          name: "Товар добавлен в корзину",
+          id: timeStamp,
+        });
+      });
     },
     sortByCatigories(category) {
       let vm = this;

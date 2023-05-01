@@ -1,5 +1,6 @@
 # online_shop
 [![wakatime](https://wakatime.com/badge/user/82b4e55b-b819-435e-9beb-0ebadd36dc23/project/4e7bb9ea-860e-4b15-b9e5-319e853d8601.svg)](https://wakatime.com/badge/user/82b4e55b-b819-435e-9beb-0ebadd36dc23/project/4e7bb9ea-860e-4b15-b9e5-319e853d8601)
+
 <img src="src/assets/Preview.jpg">
 
 ## Project setup

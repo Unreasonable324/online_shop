@@ -51,7 +51,7 @@ export default {
         result = result.reduce(function (sum, el) {
           return sum + el;
         });
-        return result;
+        return result.toFixed(2);
       } else {
         return 0;
       }

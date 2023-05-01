@@ -12,7 +12,7 @@
         alt="img"
       />
       <div>
-        <p class="V-catalog-item__price">Price: {{ product_data.price }} &#8381;</p>
+        <p class="V-catalog-item__price">Price: {{ fixedPrice }} &#8381;</p>
         <p class="V-catalog-item__category">{{ product_data.category }}</p>
       </div>
     </VPopup>
@@ -22,7 +22,7 @@
       alt="img"
     />
     <p class="V-catalog-item__name">{{ product_data.name }}</p>
-    <p class="V-catalog-item__price">Price: {{ product_data.price }} &#8381;</p>
+    <p class="V-catalog-item__price">Price: {{ fixedPrice }} &#8381;</p>
     <button class="V-catalog-item__show-info" @click="showPopupInfo">Show info</button>
     <button class="V-catalog-item__add_to_cart_btn btn" @click="addToCart">
       Add to cart
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+// import toFix from "@/filters/toFix";
 import VPopup from "../popup/V-popup";
 export default {
   components: { VPopup },
@@ -41,6 +42,9 @@ export default {
       isInfoPopupVisible: false,
     };
   },
+  // filters: {
+  //   toFix,
+  // },
   props: {
     product_data: {
       type: Object,
@@ -64,6 +68,11 @@ export default {
   //   const cartItemData = this.product_data;
   //   cartItemData.quantity = 1;
   // },
+  computed: {
+  fixedPrice() {
+    return this.product_data.price.toFixed(2)
+  }
+}
 };
 </script>
 
